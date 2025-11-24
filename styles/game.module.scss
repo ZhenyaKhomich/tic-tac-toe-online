@@ -1,0 +1,47 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid black;
+
+  &-info {
+    margin-bottom: 10px;
+  }
+
+  &-field {
+    display: grid;
+    grid-template-columns: repeat(3, 30px);
+    grid-template-rows: repeat(3, 30px);
+    //gap: 10px;
+  }
+
+  .cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    padding: 0;
+    border-radius: 0;
+
+    &-win {
+      background-color: lightblue;
+    }
+  }
+
+  .simbol--x {
+    color: red;
+  }
+
+  .simbol--o {
+    color: green;
+  }
+
+  .btn {
+    background-color: lightblue;
+    margin-top: 10px;
+    padding: 5px 10px;
+  }
+}

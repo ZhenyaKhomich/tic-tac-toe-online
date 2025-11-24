@@ -1,0 +1,39 @@
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid black;
+}
+.game-info {
+  margin-bottom: 10px;
+}
+.game-field {
+  display: grid;
+  grid-template-columns: repeat(3, 30px);
+  grid-template-rows: repeat(3, 30px);
+}
+.game .cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  padding: 0;
+  border-radius: 0;
+}
+.game .cell-win {
+  background-color: lightblue;
+}
+.game .simbol--x {
+  color: red;
+}
+.game .simbol--o {
+  color: green;
+}
+.game .btn {
+  background-color: lightblue;
+  margin-top: 10px;
+  padding: 5px 10px;
+} /*# sourceMappingURL=game.module.css.map */
