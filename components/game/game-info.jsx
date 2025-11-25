@@ -18,7 +18,7 @@ export function GameInfo({ className, component: Component }) {
         </div>
       </div>
       <div className="h-6 w-px bg-slate-200"></div>
-      <div className="text-slate-900 text-lg font-semibold">01:08</div>
+      <div className="text-lg font-semibold">01:08</div>
 
       <div className="text-orange-600 text-lg font-semibold">00:08</div>
       <div className="h-6 w-px bg-slate-200"></div>
