@@ -1,8 +1,8 @@
-export function HistoryIcon({width='12', height='12'}) {
+export function HistoryIcon() {
   return (
     <svg
-    width={width}
-    height={height}
+    width="12"
+    height="12"
       viewBox="0 0 12 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
