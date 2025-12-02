@@ -1,13 +1,10 @@
 import clsx from "clsx";
 import { UiButton } from "../uikit/ui-button";
 import { GameSimbol } from "./game-simbol";
-import { useGameState } from "./use-game-state";
 
 
-export function GameField({ className, playersCount }) {
+export function GameField({ className, cells, currentMove, nextMove, handleCellClick, winnerSequence}) {
   
-  const {cells, currentMove, nextMove, handleCellClick} = useGameState(playersCount);
-
   const actions = (
     <>
       <UiButton className="flex items-center" size="md" variant="primary">
@@ -26,6 +23,7 @@ export function GameField({ className, playersCount }) {
         {cells &&
           cells.map((simbol, index) => (
             <GameCell
+            isWinner={winnerSequence?.includes(index)}
               onClick={() => {
                 handleCellClick(index);
               }}
@@ -71,9 +69,9 @@ function GameGrid({ children }) {
   );
 }
 
-function GameCell({ children, onClick }) {
+function GameCell({ children, onClick, isWinner}) {
   return (
-    <button onClick={onClick} className="flex items-center justify-center border border-slate-200 -ml-px -mt-px cursor-pointer">
+    <button onClick={onClick} className={clsx(isWinner && 'bg-green-400',"flex items-center justify-center border border-slate-200 -ml-px -mt-px cursor-pointer")}>
       {children}
     </button>
   );
