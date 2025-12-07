@@ -39,30 +39,33 @@ const players = [
   },
 ];
 
-export function GameInfo({ className, playersCount, currentMove }) {
+export function GameInfo({ className, playersCount, currentMove, isWinner, onPlayerTimeOver}) {
   return (
     <div className={clsx(className, "flex flex-wrap gap-3 justify-between bg-white rounded-2xl shadow-md px-8 py-4")}>
       {players.slice(0, playersCount).map((player, index) => {
-        return <PlayerInfo 
-        key={player.id} 
-        playerInfo={player} 
-        isRight={index % 2 === 1}
-        isTimerRunning={currentMove === player.simbol}
-        ></PlayerInfo>;
+        return (
+          <PlayerInfo
+            key={player.id + index}
+            playerInfo={player}
+            isRight={index % 2 === 1}
+            onTimeOver={() => {onPlayerTimeOver(player.simbol)}}
+            isTimerRunning={currentMove === player.simbol && !isWinner}
+          ></PlayerInfo>
+        );
       })}
     </div>
   );
 }
 
-function PlayerInfo({ playerInfo, isRight = false, isTimerRunning }) {
-  const [seconds, setSeconds] = useState(60);
+function PlayerInfo({ playerInfo, isRight = false, isTimerRunning, onTimeOver }) {
+  const [seconds, setSeconds] = useState(10);
 
   const minuteString = String(Math.floor(seconds / 60)).padStart(2, "0");
   const secondsString = String(seconds % 60).padStart(2, "0");
   const isDanger = seconds < 10;
 
   useEffect(() => {
-    if(isTimerRunning) {
+    if (isTimerRunning) {
       const interval = setInterval(() => {
         setSeconds((lastSeconds) => Math.max((lastSeconds -= 1), 0));
       }, 1000);
@@ -70,9 +73,15 @@ function PlayerInfo({ playerInfo, isRight = false, isTimerRunning }) {
       return () => {
         clearInterval(interval);
         setSeconds(60);
-      }
+      };
     }
   }, [isTimerRunning]);
+
+  useEffect(() => {
+    if (seconds === 0) {
+      onTimeOver();
+    }
+  }, [seconds]);
 
   return (
     <div className="flex gap-3 items-center">
@@ -88,7 +97,14 @@ function PlayerInfo({ playerInfo, isRight = false, isTimerRunning }) {
         </div>
       </div>
       <div className={clsx("h-6 w-px bg-slate-200", isRight && "order-2")}></div>
-      <div className={clsx("text-lg font-semibold w-[60px]", !isTimerRunning && 'text-slate-300', isRight && "order-1", isDanger && "text-orange-600")}>
+      <div
+        className={clsx(
+          "text-lg font-semibold w-[60px]",
+          !isTimerRunning && "text-slate-300",
+          isRight && "order-1",
+          isDanger && "text-orange-600",
+        )}
+      >
         {minuteString}:{secondsString}
       </div>
     </div>
