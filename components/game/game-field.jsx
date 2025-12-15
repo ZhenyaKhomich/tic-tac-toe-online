@@ -1,10 +1,8 @@
 import clsx from "clsx";
 import { UiButton } from "../uikit/ui-button";
-import { GameSimbol } from "./game-simbol";
+import { GameSymbol } from "./game-symbol";
 
-
-export function GameField({ className, cells, currentMove, nextMove, handleCellClick, winnerSequence, winnerSymbol}) {
-  
+export function GameField({ className, cells, currentMove, nextMove, handleCellClick, winnerSequence, winnerSymbol }) {
   const actions = (
     <>
       <UiButton className="flex items-center" size="md" variant="primary">
@@ -23,14 +21,14 @@ export function GameField({ className, cells, currentMove, nextMove, handleCellC
         {cells &&
           cells.map((simbol, index) => (
             <GameCell
-            isWinner={winnerSequence?.includes(index)}
+              isWinner={winnerSequence?.includes(index)}
               onClick={() => {
                 handleCellClick(index);
               }}
               key={index}
               disabled={!!winnerSymbol}
             >
-              {simbol && <GameSimbol simbol={simbol} width="20" height="20"></GameSimbol>}
+              {simbol && <GameSymbol simbol={simbol} width="20" height="20"></GameSymbol>}
             </GameCell>
           ))}
       </GameGrid>
@@ -52,11 +50,11 @@ function GameMoveInfo({ actions, currentMove, nextMove }) {
       <div>
         <div className="flex items-center gap-1 text-xl font-semibold leading-[1.2]">
           Ход:
-          <GameSimbol simbol={currentMove} width="20" height="20"></GameSimbol>
+          <GameSymbol simbol={currentMove} width="20" height="20"></GameSymbol>
         </div>
         <div className="flex items-center text-xs leading-[1.2] gap-1 text-slate-400">
           Следующий:
-          <GameSimbol simbol={nextMove}></GameSimbol>
+          <GameSymbol simbol={nextMove}></GameSymbol>
         </div>
       </div>
       <div className="flex items-center gap-3">{actions}</div>
@@ -70,9 +68,16 @@ function GameGrid({ children }) {
   );
 }
 
-function GameCell({ children, onClick, isWinner, disabled}) {
+function GameCell({ children, onClick, isWinner, disabled }) {
   return (
-    <button onClick={onClick} className={clsx(isWinner && 'bg-green-400',"flex items-center justify-center border border-slate-200 -ml-px -mt-px cursor-pointer")} disabled={disabled}>
+    <button
+      onClick={onClick}
+      className={clsx(
+        isWinner && "bg-green-400",
+        "flex items-center justify-center border border-slate-200 -ml-px -mt-px cursor-pointer",
+      )}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

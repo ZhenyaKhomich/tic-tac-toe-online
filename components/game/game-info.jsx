@@ -1,6 +1,6 @@
 import { Profile } from "../profile";
 import { clsx } from "clsx";
-import { GameSimbol } from "./game-simbol";
+import { GameSymbol } from "./game-symbol";
 import { GAME_SIMBOLS } from "./constants";
 import avatar1 from "./images/avatar1.png";
 import avatar2 from "./images/avatar2.png";
@@ -39,7 +39,7 @@ const players = [
   },
 ];
 
-export function GameInfo({ className, playersCount, currentMove, isWinner, onPlayerTimeOver}) {
+export function GameInfo({ className, playersCount, currentMove, isWinner, onPlayerTimeOver }) {
   return (
     <div className={clsx(className, "flex flex-wrap gap-3 justify-between bg-white rounded-2xl shadow-md px-8 py-4")}>
       {players.slice(0, playersCount).map((player, index) => {
@@ -48,7 +48,9 @@ export function GameInfo({ className, playersCount, currentMove, isWinner, onPla
             key={player.id + index}
             playerInfo={player}
             isRight={index % 2 === 1}
-            onTimeOver={() => {onPlayerTimeOver(player.simbol)}}
+            onTimeOver={() => {
+              onPlayerTimeOver(player.simbol);
+            }}
             isTimerRunning={currentMove === player.simbol && !isWinner}
           ></PlayerInfo>
         );
@@ -93,7 +95,7 @@ function PlayerInfo({ playerInfo, isRight = false, isTimerRunning, onTimeOver })
           avatar={playerInfo.avatar}
         ></Profile>
         <div className="flex items-center justify-center w-5 h-5 rounded-full bg-white shadow absolute -left-1 -top-1">
-          <GameSimbol simbol={playerInfo.simbol}></GameSimbol>
+          <GameSymbol simbol={playerInfo.simbol}></GameSymbol>
         </div>
       </div>
       <div className={clsx("h-6 w-px bg-slate-200", isRight && "order-2")}></div>
